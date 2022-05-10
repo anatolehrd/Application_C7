@@ -6,37 +6,35 @@ import AppLoading from 'expo-app-loading';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import SplashScreen from 'react-native-splash-screen';
 
 import AppNavigator from './navigation/AppNavigator';
 
-import * as firebase from 'firebase'
-import 'firebase/firestore';
+import * as firebase from 'firebase';
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
 
 //Rajouter les liaisons avec la base de donnée
 
+
 const firebaseConfig = {
-    apiKey: "AIzaSyDP_Dbevczlh2eN1Zo9AyUvLZICoxnKhIc",
-    authDomain: "fzdf-2c9ff.firebaseapp.com",
-    databaseURL: "https://fzdf-2c9ff.firebaseio.com",
-    projectId: "fzdf-2c9ff",
-    storageBucket: "fzdf-2c9ff.appspot.com",
-    messagingSenderId: "750961760063",
-    appId: "1:750961760063:web:9ca0c45a75f67663c8e58a"
-  };
+  apiKey: "AIzaSyDP_Dbevczlh2eN1Zo9AyUvLZICoxnKhIc",
+  authDomain: "fzdf-2c9ff.firebaseapp.com",
+  databaseURL: "https://fzdf-2c9ff.firebaseio.com",
+  projectId: "fzdf-2c9ff",
+  storageBucket: "fzdf-2c9ff.appspot.com",
+  messagingSenderId: "750961760063",
+  appId: "1:750961760063:web:9ca0c45a75f67663c8e58a"
+};
 
-  if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
- }else {
-    firebase.app(); // if already initialized, use that one
- }
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-//firebase.initializeApp(firebaseConfig);
 
 // COMPONENT
-class App extends React.Component{
+class App extends React.Component {
 
   constructor(props) {
     super(props);
@@ -81,11 +79,11 @@ class App extends React.Component{
     // service, for example Sentry
     console.warn(error);
   }
-  
+
   handleFinishLoading() {
-    this.setState({isLoadingComplete: true});
+    this.setState({ isLoadingComplete: true });
   }
-  
+
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
